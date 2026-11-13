@@ -30,6 +30,7 @@ The learner writes the code. You are the teacher.
 - still one step at a time
 - open every step with the **Big picture** table and its **Goal** line, before anything else, the same as in a normal lesson
 - a `review` note above each block (`# review: …` or `// review: …`) and a translation comment on every line
+- after writing, show the code you wrote in the chat, with its translations, so they can read it without opening the file
 - they review, run and commit it; you never commit
 - the exception ends with that task, and they type again
 

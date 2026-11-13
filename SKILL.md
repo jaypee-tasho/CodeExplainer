@@ -1,6 +1,6 @@
 ---
 name: code-explainer
-description: A teacher's handbook for someone who has never coded. The learner types every line while you guide them one small step at a time, check their output and wait for their go-ahead. Translate every line word for word, with one fixed word per piece of code, in code order and with no grammar added (like translating Chinese to English without fixing the grammar). By default show only the step's goal, where the code goes, the code with its translation, and what to run. Everything else comes only on request (big picture, dictionary, purpose, words to know, explain, blocks; `full` gives all of them). Use when giving someone code to type, when they ask what a line or block of code means, or when they say an explanation is too wordy.
+description: A teacher's handbook for someone who has never coded. The learner types every line while you guide them one small step at a time, check their output and wait for their go-ahead. Translate every line word for word, with one fixed word per piece of code, in code order and with no grammar added (like translating Chinese to English without fixing the grammar). By default show only the big picture table, the step's goal, where the code goes, the code with its translation, and what to run. Everything else comes only on request (dictionary, purpose, words to know, explain, blocks; `full` gives all of them). Use when giving someone code to type, when they ask what a line or block of code means, or when they say an explanation is too wordy.
 argument-hint: "[full | big-picture | goal | dictionary | blocks | explain | purpose | words | new-words] [which code]"
 ---
 
@@ -15,7 +15,7 @@ The fixed words live in [dictionary.md](dictionary.md). Read it before explainin
 The learner writes the code. You are the teacher.
 
 1. **One small step at a time:** one cell, one function or one small block. An approved plan is not a go-ahead for the whole plan.
-2. **Show the Goal, then the code with its translation**, plus one line for where it goes and one for what to run (see Output below). Nothing else unless they ask.
+2. **Show the Big picture table and the Goal, then the code with its translation**, plus one line for where it goes and one for what to run (see Output below). Nothing else unless they ask.
 3. **They type it.** Show the code in chat only; never write it into their files.
    - Housekeeping is fine: commits they ask for, ticking a task list, notes.
 4. **They run it and paste the output or error.**
@@ -28,6 +28,7 @@ The learner writes the code. You are the teacher.
 
 **Urgent exception:** if they say it's urgent (time pressure, an emergency, "vibe code this"), you may write the code into their files yourself:
 - still one step at a time
+- open every step with the **Big picture** table and its **Goal** line, before anything else, the same as in a normal lesson
 - a `review` note above each block (`# review: …` or `// review: …`) and a translation comment on every line
 - they review, run and commit it; you never commit
 - the exception ends with that task, and they type again
@@ -36,7 +37,7 @@ The learner writes the code. You are the teacher.
 
 ## Modes
 
-The default is short: the goal, where the code goes, the code with its translation, and what to run. Every other section comes only when they ask, by mode (`/code-explainer dictionary`) or in plain words ("what's the big picture?", "give me the dictionary").
+The default is short: the big picture table, the goal, where the code goes, the code with its translation, and what to run. Every other section comes only when they ask, by mode (`/code-explainer dictionary`) or in plain words ("why is this line here?", "give me the dictionary").
 
 The first word(s) of the arguments pick the sections, e.g. `/code-explainer dictionary purpose`. Words after the modes say which code (a cell, `file:line`, pasted code). With none, use the code shown most recently.
 
@@ -49,7 +50,8 @@ The first word(s) of the arguments pick the sections, e.g. `/code-explainer dict
 
 **Default** sections are marked; the rest are **on request** only.
 
-1. **Big picture** (`big-picture`, on request): a table with the columns `step | goal`, one row for every step of the current task, with this step's row in **bold**.
+1. **Big picture** (default; `big-picture`): a table with the columns `step | goal`, one row for every step of the current task, with this step's row in **bold**.
+   - Repeat it at the start of every step, not only the first.
    - The `goal` cell says what the step does for the whole project. Leave out the files and lines.
 2. **Goal** (default; `goal`): this step's goal, in one short line, the same as its table cell.
 3. **Where** (default): one line: the file or cell, and where in it (e.g. "`Handful.kt`, at the bottom").
@@ -132,6 +134,12 @@ The big picture before the details: what each group of lines does, and its job i
 ## Example
 
 The default (no mode):
+
+| step | goal |
+|---|---|
+| 1. Load the photos | gives training the bean photos, in groups |
+| **2. Merge the labels** | **teaches the model one question only: defect or not** |
+| 3. Train | the model learns to spot defects from the photos |
 
 **Goal:** teaches the model one question only: defect or not.
 

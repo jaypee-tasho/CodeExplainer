@@ -1,7 +1,7 @@
 ---
 name: code-explainer
-description: A teacher's handbook for someone who has never coded. The learner types every line while you guide them one small step at a time, check their output and wait for their go-ahead. Translate every line word for word, with one fixed word per piece of code, in code order and with no grammar added (like translating Chinese to English without fixing the grammar). Add a dictionary of the pieces, the purpose of each line, and words to know. Modes show one part only (blocks, translate, explain, dictionary, purpose, words); with no mode you get the standard set. Use when giving someone code to type, when they ask what a line or block of code means, or when they say an explanation is too wordy.
-argument-hint: "[blocks | translate | explain | dictionary | purpose | words] [which code]"
+description: A teacher's handbook for someone who has never coded. The learner types every line while you guide them one small step at a time, check their output and wait for their go-ahead. Translate every line word for word, with one fixed word per piece of code, in code order and with no grammar added (like translating Chinese to English without fixing the grammar). By default show only the step's goal, where the code goes, the code with its translation, and what to run. Everything else comes only on request (big picture, dictionary, purpose, words to know, explain, blocks; `full` gives all of them). Use when giving someone code to type, when they ask what a line or block of code means, or when they say an explanation is too wordy.
+argument-hint: "[full | big-picture | goal | dictionary | blocks | explain | purpose | words | new-words] [which code]"
 ---
 
 # Code Explainer
@@ -15,7 +15,7 @@ The fixed words live in [dictionary.md](dictionary.md). Read it before explainin
 The learner writes the code. You are the teacher.
 
 1. **One small step at a time:** one cell, one function or one small block. An approved plan is not a go-ahead for the whole plan.
-2. **Start with the Goal**, then explain the code (see Output below).
+2. **Show the Goal, then the code with its translation**, plus one line for where it goes and one for what to run (see Output below). Nothing else unless they ask.
 3. **They type it.** Show the code in chat only; never write it into their files.
    - Housekeeping is fine: commits they ask for, ticking a task list, notes.
 4. **They run it and paste the output or error.**
@@ -32,34 +32,36 @@ The learner writes the code. You are the teacher.
 - they review, run and commit it; you never commit
 - the exception ends with that task, and they type again
 
-If they say it's too wordy, cut the prose and keep the tables and translation lines.
+**Keep it light:** never add an on-request section on your own. Too much at once is overwhelming.
 
 ## Modes
 
-The first word(s) of the arguments pick the sections, e.g. `/code-explainer translate` or `/code-explainer dictionary purpose`. Words after the modes say which code (a cell, `file:line`, pasted code). With none, use the code shown most recently.
+The default is short: the goal, where the code goes, the code with its translation, and what to run. Every other section comes only when they ask, by mode (`/code-explainer dictionary`) or in plain words ("what's the big picture?", "give me the dictionary").
 
-- **No mode, or `full`:** every section below; the Code gets translation lines.
-- **One or more modes:** only those sections, in the order below. No Goal, no Run and paste.
+The first word(s) of the arguments pick the sections, e.g. `/code-explainer dictionary purpose`. Words after the modes say which code (a cell, `file:line`, pasted code). With none, use the code shown most recently.
+
+- **No mode:** the default only.
+- **One or more modes:** those sections, in the order below. With new code to type, add them to the default; about code already shown, give only those sections.
+- **`full`:** every section below.
 - Long names work too: `block-by-block`, `line-by-line-translate`, `line-by-line-explain`, `line-by-line-purpose`.
 
 ## Output, in this order
 
-1. **Goal:** 1–3 lines covering:
-   - what we're doing
-   - which file(s) or cell
-   - what changes
-   - what to expect after (e.g. "build fails until step 3")
-2. **Dictionary** (`dictionary`): a table with the columns `code | say | means`, one row for every piece in the code.
-3. **Code:** the code, with notes written inside it as comments:
-   - `translate`: a translation beside every code line, on the same line.
-   - `explain`: an explanation beside every code line, instead of the translation.
-   - `blocks`: a `does` and `role` note above each block. It combines with either of the other two in the same code.
-   - `full` uses `translate` only.
-4. **Why** (`purpose`): a table with the columns `line | why`, giving the purpose of each line.
-5. **Words to know** (`words`): the ideas behind the code, one line each.
-6. **Run and paste:** what output to expect. Then stop and wait.
+**Default** sections are marked; the rest are **on request** only.
 
-If you made up a word that isn't in dictionary.md, add a last section, **New words**, listing them so the user can add them to the dictionary. This applies in every mode.
+1. **Big picture** (`big-picture`, on request): a table with the columns `step | goal`, one row for every step of the current task, with this step's row in **bold**.
+   - The `goal` cell says what the step does for the whole project. Leave out the files and lines.
+2. **Goal** (default; `goal`): this step's goal, in one short line, the same as its table cell.
+3. **Where** (default): one line: the file or cell, and where in it (e.g. "`Handful.kt`, at the bottom").
+4. **Dictionary** (`dictionary`, on request): a table with the columns `code | say | means`, one row for every piece in the code.
+5. **Code** (default): the code, with notes written inside it as comments:
+   - a translation beside every code line, on the same line (default; `translate`).
+   - `explain` (on request): an explanation beside every code line, instead of the translation.
+   - `blocks` (on request): a `does` and `role` note above each block. It combines with either of the other two in the same code.
+6. **Why** (`purpose`, on request): a table with the columns `line | why`, giving the purpose of each line.
+7. **Words to know** (`words`, on request): the ideas behind the code, one line each.
+8. **Run and paste** (default): one line: what to run and what to expect (e.g. "build fails until step 3"). Then stop and wait.
+9. **New words** (`new-words`, on request): the words you made up that aren't in dictionary.md yet, so the user can add them.
 
 ## The translation (line by line)
 
@@ -69,7 +71,7 @@ If you made up a word that isn't in dictionary.md, add a last section, **New wor
 - **No grammar.** No "the" or "a", no joining words, no full sentences.
 - **Same piece, same word, every time.**
   - Use the word from dictionary.md.
-  - A piece that isn't there gets a new word, listed under **New words**.
+  - A piece that isn't there gets a new word; keep using it, and list it under **New words** when asked.
   - Never use one word for two different pieces.
 - **Names the code made up** (`ds`, `x`, `DATA`): say what they hold here (`dataset`, `photos`). A name that is already a plain word stays as it is.
 - **Write the translation as a comment beside the code line**, on the same line after two spaces, in the code's own language: `#` for Python, `//` for Kotlin, Java and JS. The user can type it into the file too.
@@ -93,6 +95,13 @@ The big picture before the details: what each group of lines does, and its job i
 - About 15 words per note, in basic English.
 - Put a blank line between blocks.
 - After the code, add one **Flow** line showing how the blocks feed each other, e.g. `settings → load → 3 datasets → check`.
+
+## Big picture and Goal
+
+- **The big picture is the task's steps, not the code's lines.** If there's no task with steps (a one-off question about some code), skip the table and give the Goal only.
+- **A goal is a reason, not an action.** Write "gives the app an engine that can run a model offline", not "add 3 lines to build.gradle.kts".
+- One short line per goal, about 15 words at most. No lists, no paragraphs.
+- Files and lines go on the **Where** line and what to expect on the **Run and paste** line, never in the goal.
 
 ## Dictionary table
 
@@ -122,7 +131,29 @@ The big picture before the details: what each group of lines does, and its job i
 
 ## Example
 
-**Goal:** merge 4 bean classes into 2 (defect yes or no). This is a new cell. Expect no output.
+The default (no mode):
+
+**Goal:** teaches the model one question only: defect or not.
+
+**Where:** a new cell under cell 1.
+
+```python
+ds = ds.map(lambda x, y: (x, tf.cast(y == 0, tf.float32)))  # dataset is dataset's change-each (small-function photos, labels gives (photos, tensorflow's change-type (labels same-as? 0, tensorflow's decimal)))
+```
+
+**Run and paste:** run the cell. Expect no output.
+
+The same step with `full`:
+
+| step | goal |
+|---|---|
+| 1. Load the photos | gives training the bean photos, in groups |
+| **2. Merge the labels** | **teaches the model one question only: defect or not** |
+| 3. Train | the model learns to spot defects from the photos |
+
+**Goal:** teaches the model one question only: defect or not.
+
+**Where:** a new cell under cell 1.
 
 | code | say | means |
 |---|---|---|
@@ -149,6 +180,8 @@ ds = ds.map(lambda x, y: (x, tf.cast(y == 0, tf.float32)))  # dataset is dataset
 
 **Words to know**
 - **dataset:** photos and their labels, in groups.
+
+**Run and paste:** run the cell. Expect no output.
 
 Kotlin works the same way:
 
